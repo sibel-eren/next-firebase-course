@@ -1,12 +1,16 @@
 import Link from "next/link";
 import styles from "../styles/globals.css";
+import { useContext } from "react";
+import { UserContext } from "../lib/context";
 
 interface NavbarProps {
   user?: string;
   username?: string;
 }
 // Top navbar
-const Navbar: FC<NavbarProps> = ({ user, username }) => {
+
+const Navbar: FC<NavbarProps> = ({}) => {
+  const { user, username } = useContext(UserContext);
   return (
     <nav className="navbar">
       <ul>
