@@ -2,15 +2,23 @@ import Link from "next/link";
 import styles from "../styles/globals.css";
 import { useContext } from "react";
 import { UserContext } from "../lib/context";
+import { auth } from "../lib/firebase";
+import { signOut } from "firebase/auth";
 
-interface NavbarProps {
-  user?: string;
-  username?: string;
-}
-// Top navbar
-
-const Navbar: FC<NavbarProps> = ({}) => {
+const Navbar: FC<> = () => {
   const { user, username } = useContext(UserContext);
+
+  // Sign out
+  const signOutUser = async () => {
+    await signOut(auth)
+      .then(() => {
+        console.log("User signed out");
+      })
+      .catch((error) => {
+        console.error("There was an error signing out");
+      });
+  };
+
   return (
     <nav className="navbar">
       <ul>
@@ -30,7 +38,12 @@ const Navbar: FC<NavbarProps> = ({}) => {
             </li>
             <li>
               <Link href={`/${username}`}>
-                <img src={user?.photoURL} />
+                <img src={user?.photoURL || "/hacker.png"} />
+              </Link>
+            </li>
+            <li>
+              <Link href="/">
+                <button onClick={signOutUser}>Log Out</button>
               </Link>
             </li>
           </>
