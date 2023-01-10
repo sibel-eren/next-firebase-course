@@ -13,6 +13,7 @@ export default function Enter(props) {
   // 3. user signed in, has username <SignOutButton />
   return (
     <main>
+      <Metatags title="Enter" description="Sign up for this app!" />
       {user ? (
         !username ? (
           <UsernameForm />
